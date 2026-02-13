@@ -80,6 +80,14 @@ module.exports = (env, argv) => {
         // Hoisted Yarn Workspace Modules
         path.resolve(__dirname, '../../../node_modules'),
         SRC_DIR,
+        path.resolve(
+          __dirname,
+          'C:/Users/12532/Documents/WiseSpine/ohif-modes/wise-spine/node_modules'
+        ),
+        path.resolve(
+          __dirname,
+          'C:/Users/12532/Documents/WiseSpine/ohif-modes/wise-spine/node_modules'
+        ),
       ],
     },
     plugins: [
@@ -156,6 +164,11 @@ module.exports = (env, argv) => {
       proxy: [
         {
           '/dicomweb': 'http://localhost:5000',
+        },
+        {
+          context: ['/orthanc-container'],
+          target: 'http://localhost',
+          changeOrigin: true,
         },
       ],
       static: [

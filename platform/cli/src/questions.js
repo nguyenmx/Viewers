@@ -19,7 +19,7 @@ function getPathQuestions(packageType) {
       type: 'input',
       name: 'baseDir',
       message: `What is the target path to create your ${packageType}?`,
-      suffix: `\n(we recommend you do not use the OHIF ${packageType} folder (./${packageType}s) unless you are developing a core ${packageType})`,
+      suffix: `\n(we recommend you do not use the OHIF ${packageType} folder (./${packageType}s) unless you are developing a core ${packageType})\n(Enter the parent directory - the ${packageType} name will be appended automatically)`,
       maxLength: 40,
       validate: input => {
         if (!input) {
@@ -29,11 +29,22 @@ function getPathQuestions(packageType) {
         return true;
       },
       filter: (input, answers) => {
-        // Replace ~ with the user's home directory
-        const expandedPath = input.replace(/^~(?=$|\/|\\)/, os.homedir());
+        // Strip leading and trailing quotes (both single and double)
+        const cleanedInput = input.trim().replace(/^["']|["']$/g, '');
 
-        // Resolve the path to an absolute path
-        const resolvedPath = path.resolve(expandedPath, answers.name);
+        // Replace ~ with the user's home directory
+        const expandedPath = cleanedInput.replace(/^~(?=$|\/|\\)/, os.homedir());
+
+        // Resolve to absolute path
+        const resolvedBasePath = path.resolve(expandedPath);
+
+        // Check if the path already ends with the mode name to avoid doubling
+        const pathEndsWithName = path.basename(resolvedBasePath) === answers.name;
+
+        // Only append the name if it's not already in the path
+        const resolvedPath = pathEndsWithName
+          ? resolvedBasePath
+          : path.resolve(resolvedBasePath, answers.name);
 
         return resolvedPath;
       },
