@@ -61,6 +61,7 @@ import TabPatientInfo from './Sources/TabPatientInfo';
 import TabRoiThreshold from './Sources/TabRoiThreshold';
 import TabSegmentation from './Sources/TabSegmentation';
 import TabStudies from './Sources/TabStudies';
+import TabChatBubble from './Sources/TabChatBubble';
 import ThumbnailView from './Sources/ThumbnailView';
 import Trash from './Sources/Trash';
 import ViewportViews from './Sources/ViewportViews';
@@ -682,6 +683,7 @@ export const Icons = {
   TabContours: (props: IconProps) => TabContours(props),
   'tab-segmentation': (props: IconProps) => TabSegmentation(props),
   'tab-studies': (props: IconProps) => TabStudies(props),
+  TabChatBubble: (props: IconProps) => TabChatBubble(props),
   'tab-linear': (props: IconProps) => TabLinear(props),
   'tab-4d': (props: IconProps) => Tab4D(props),
   'tab-patient-info': (props: IconProps) => TabPatientInfo(props),
