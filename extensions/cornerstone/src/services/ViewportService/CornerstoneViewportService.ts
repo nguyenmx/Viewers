@@ -531,7 +531,7 @@ class CornerstoneViewportService extends PubSubService implements IViewportServi
 
   public getOrientation(viewportId: string): string {
     const viewportInfo = this.getViewportInfo(viewportId);
-    return viewportInfo.getOrientation();
+    return viewportInfo?.getOrientation();
   }
 
   /**

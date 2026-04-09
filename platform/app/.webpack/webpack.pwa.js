@@ -94,8 +94,8 @@ module.exports = (env, argv) => {
       // For debugging re-renders
       // MillionLint.webpack(),
       new Dotenv(),
-      // Clean output.path
-      new CleanWebpackPlugin(),
+      // Clean output.path (skip in dev — Windows Defender locks .wasm files)
+      ...(process.env.NODE_ENV === 'production' ? [new CleanWebpackPlugin()] : []),
       // Copy "Public" Folder to Dist
       new CopyWebpackPlugin({
         patterns: [
@@ -169,6 +169,18 @@ module.exports = (env, argv) => {
           context: ['/orthanc-container'],
           target: 'http://localhost',
           changeOrigin: true,
+        },
+        {
+          context: ['/segmentation'],
+          target: 'http://localhost:8001',
+          changeOrigin: true,
+          pathRewrite: { '^/segmentation': '' },
+        },
+        {
+          context: ['/monai'],
+          target: 'http://localhost:8002',
+          changeOrigin: true,
+          pathRewrite: { '^/monai': '' },
         },
       ],
       static: [

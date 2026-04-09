@@ -155,7 +155,7 @@ function DataSourceWrapper(props: withAppTypes) {
 
       setData({
         studies: studies || [],
-        total: studies.length,
+        total: (studies || []).length,
         resultsPerPage: queryFilterValues.resultsPerPage,
         pageNumber: queryFilterValues.pageNumber,
         location,
